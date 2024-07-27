@@ -1,11 +1,11 @@
-package com.smu.board_project;
+package com.smu.board;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class) 
 public class BoardProjectApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(BoardProjectApplication.class, args);
 	}
