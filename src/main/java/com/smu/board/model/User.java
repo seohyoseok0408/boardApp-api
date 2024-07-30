@@ -22,9 +22,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class User {
+	
 	@Id
-	@Column(nullable = false, length = 50, unique = true)
-	private String email; // id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(nullable = false, length = 100, unique = true)
+	private String username; // 담기는 값은 이메일 -> 로그인 id 로 쓰일 것
 	
 	@Column(nullable = false, length = 100)
 	private String name; 
