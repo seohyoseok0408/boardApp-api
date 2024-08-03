@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +37,14 @@ public class UserApiController {
     @PostMapping("/signup")
     public ResponseDto<Integer> save(@RequestBody User user) {
         System.out.println("UserApiController: save 호출됨");
-        int result = userService.회원가입(user);
+        int result = userService.회원가입(user); 
         System.out.println("UserApiController: 회원가입 결과 : " + result);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), result); 
+    }
+    
+    @GetMapping("/user")
+    public ResponseDto<Integer> test() {
+    	return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
 }

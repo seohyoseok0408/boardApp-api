@@ -1,7 +1,7 @@
 server:
   port: 8000
   servlet:
-    context-path: /api
+    context-path: /
 
 spring:
   datasource:
@@ -13,7 +13,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -26,3 +26,6 @@ spring:
 
 board:
   key: board1234
+
+jwt:
+  secret : vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
