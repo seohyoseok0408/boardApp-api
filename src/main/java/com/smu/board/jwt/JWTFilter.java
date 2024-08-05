@@ -23,18 +23,14 @@ public class JWTFilter extends OncePerRequestFilter{
 	public JWTFilter(JWTUtil jwtUtil) {
 		this.jwtUtil = jwtUtil;
 	}
-
-//	Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im
-//	h5b0BzdW5tb29uLmFjLm
-//	tyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTcyMjQyMjg
-//	wMCwiZXhwIjoxNzIyNDIyODM2fQ.oQNfW4Lhe7mY6EecDMRRaQLTd4Byfi279Y2cJYqwvyY
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String authorization = request.getHeader("Authorization");
 		
-		if (authorization == null || !authorization.startsWith("Bearer ")) {
+		if (authorization == null || !authorization.startsWith("Bearer")) {
 
             System.out.println("token null");
             filterChain.doFilter(request, response);
@@ -54,18 +50,22 @@ public class JWTFilter extends OncePerRequestFilter{
             System.out.println("token expired");
             filterChain.doFilter(request, response);
 
-						//조건이 해당되면 메소드 종료 (필수)
+			//조건이 해당되면 메소드 종료 (필수)
             return;
         }
 		
 		String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
+        Integer id = jwtUtil.getId(token);
+        
+        System.out.println(username+role+id);
         
         RoleType roleType;
         roleType = RoleType.valueOf(role);
 		
 		//userEntity를 생성하여 값 set
         User user = new User();
+        user.setId(id);
         user.setUsername(username);
         user.setPassword("temppassword");
         user.setRole(roleType);
@@ -78,7 +78,7 @@ public class JWTFilter extends OncePerRequestFilter{
 		
         //세션에 사용자 등록
         SecurityContextHolder.getContext().setAuthentication(authToken);
-
+        System.out.println("세션에 사용자 등록됨");
 
         filterChain.doFilter(request, response);
 	}

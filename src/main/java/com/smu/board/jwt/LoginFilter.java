@@ -69,10 +69,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter{
         }
 	}
 	
+	//로그인 성공시 실행하는 메소드
 	@Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) {
 		CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();	
 		String username = customUserDetails.getUsername();
+		Integer id = customUserDetails.getUser().getId();
 		
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -80,14 +82,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter{
 
         String role = auth.getAuthority();
 		
-        String token = jwtUtil.createJwt(username, role, 60*60*10L);
+        String token = jwtUtil.createJwt(username, role, id, 10 * 60 * 60 * 1000L); // 10시간 설정
         
         response.addHeader("Authorization", "Bearer " + token);
         
 		System.out.println("success");
     }
 
-		//로그인 실패시 실행하는 메소드
+	//로그인 실패시 실행하는 메소드
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
     	response.setStatus(401);

@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.smu.board.model.User;
 
+import lombok.Getter;
+
+@Getter
 public class CustomUserDetails implements UserDetails {
 	
 	private final User user;
