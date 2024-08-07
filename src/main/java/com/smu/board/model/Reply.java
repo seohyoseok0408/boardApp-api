@@ -29,7 +29,7 @@ public class Reply {
 	private int id; // 시퀀스, auto_incremment로 가져가는 전략
 	
 	@Column(nullable = false, length = 200)
-	private String contetnt;
+	private String content;
 	
 	@ManyToOne
 	@JoinColumn(name = "boardId")
