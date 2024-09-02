@@ -1,5 +1,9 @@
 package com.smu.board.repository;
 
-public class ReplyRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.smu.board.model.Reply;
+
+public interface ReplyRepository extends JpaRepository<Reply, Integer>{
 
 }
